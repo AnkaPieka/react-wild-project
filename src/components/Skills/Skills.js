@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Skills.module.css";
 
-function Skills({ skills = [] }) {
+function Skills({ skills }) {
   return (
     <div className={styles.skills}>
       <h4>Wild Skills</h4>
@@ -9,8 +9,8 @@ function Skills({ skills = [] }) {
       <ul className={styles.skillsList}>
         {skills.map((skill, i) => (
           <li className={styles.skill} key={"skill_" + i}>
-            <s className={styles.skillName}>{skill.name}</s>
-            <p className={styles.skillGrade}>{skill.vote}</p>
+            <s className={styles.skillName}>{skill.title}</s>
+            <p className={styles.skillGrade}>{skill.votes}</p>
           </li>
         ))}
       </ul>

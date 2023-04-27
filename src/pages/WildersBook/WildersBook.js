@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import Wilder from "../../components/Wilder/Wilder";
 import styles from "./WildersBook.module.css";
+import Form from "../../components/Form/Form";
 
 const dummyDataUser = [
   {
@@ -73,17 +75,38 @@ const dummyDataUser = [
 ];
 
 function WildersBook() {
+  const [wilders, setWilders] = useState([]);
+
+  console.log(wilders);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const wildersFromDB = await axios.get("http://localhost:5000/api/wilder");
+
+      setWilders(wildersFromDB.data);
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div id={styles.wilderBookContainer}>
+      <section>
+        <Form />
+      </section>
+
       <section>
         <h2>Wilders</h2>
 
         <div className={styles.WildersBookCardRow}>
-          {dummyDataUser.map((user) => (
+          {wilders.map((wilder) => (
             <Wilder
-              name={user.name}
-              description={user.description}
-              skills={user.skills}
+              key={wilder.id}
+              id={wilder.id}
+              name={wilder.name}
+              city={wilder.city}
+              description={wilder.description}
+              skills={wilder.skills}
             />
           ))}
         </div>
